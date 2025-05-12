@@ -1,0 +1,7 @@
+### Create Org
+POST http://localhost:3333/orgs
+Content-Type: application/json
+
+{
+  "responsibleName": "John Doe"
+}
