@@ -1,0 +1,9 @@
+services:
+  find-a-friend-pg:
+    image: bitnami/postgresql:latest
+    environment:
+      - POSTGRESQL_USERNAME=postgres
+      - POSTGRESQL_PASSWORD=password
+      - POSTGRESQL_DATABASE=find-a-friend
+    ports:
+      - 5432:5432
