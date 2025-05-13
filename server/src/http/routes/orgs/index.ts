@@ -1,7 +1,7 @@
-import type { FastifyInstance } from 'fastify'
-import { create, createOrgSchema } from './create'
-import type { ZodTypeProvider } from 'fastify-type-provider-zod'
+import type { FastifyTypedInstance } from '@/@types/fastify'
 
-export async function orgRoutes(app: FastifyInstance) {
-  app.withTypeProvider<ZodTypeProvider>().post('/', createOrgSchema, create)
+import { create } from './create.controller'
+
+export async function orgRoutes(app: FastifyTypedInstance) {
+  app.register(create)
 }

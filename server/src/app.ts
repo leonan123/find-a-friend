@@ -1,17 +1,35 @@
-import fastify from 'fastify'
-import {
-  validatorCompiler,
-  serializerCompiler,
-  jsonSchemaTransform,
-} from 'fastify-type-provider-zod'
 import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUI from '@fastify/swagger-ui'
-import { routes } from './http/routes'
+import fastify from 'fastify'
+import {
+  hasZodFastifySchemaValidationErrors,
+  jsonSchemaTransform,
+  serializerCompiler,
+  validatorCompiler,
+  type ZodTypeProvider,
+} from 'fastify-type-provider-zod'
 
-export const app = fastify()
+import { orgRoutes } from './http/routes/orgs'
+
+export const app = fastify().withTypeProvider<ZodTypeProvider>()
 
 app.setValidatorCompiler(validatorCompiler)
 app.setSerializerCompiler(serializerCompiler)
+
+app.setErrorHandler((err, _, reply) => {
+  if (hasZodFastifySchemaValidationErrors(err)) {
+    return reply.status(400).send({
+      message: 'Validation error',
+      issues: err.validation.flatMap((issue) => issue.params.issue),
+    })
+  }
+
+  console.error(err)
+
+  return reply.status(500).send({
+    message: 'Internal server error',
+  })
+})
 
 app.register(fastifySwagger, {
   openapi: {
@@ -20,7 +38,6 @@ app.register(fastifySwagger, {
       description: 'API for Find a Friend',
       version: '1.0.0',
     },
-    servers: [],
   },
   transform: jsonSchemaTransform,
 })
@@ -29,4 +46,4 @@ app.register(fastifySwaggerUI, {
   routePrefix: '/docs',
 })
 
-app.register(routes)
+app.register(orgRoutes, { prefix: 'orgs' })

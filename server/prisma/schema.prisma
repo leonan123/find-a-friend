@@ -8,7 +8,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Orgs {
+model Organizations {
   id              String   @id @default(uuid())
   responsibleName String   @map("responsible_name")
   email           String   @unique
@@ -21,7 +21,7 @@ model Orgs {
 
   pets Pets[]
 
-  @@map("orgs")
+  @@map("organizations")
 }
 
 enum LifeStage {
@@ -79,7 +79,7 @@ model Pets {
   createdAt         DateTime               @default(now()) @map("created_at")
   updatedAt         DateTime               @default(now()) @map("updated_at")
   orgId             String                 @map("org_id")
-  org               Orgs                   @relation(fields: [orgId], references: [id])
+  org               Organizations          @relation(fields: [orgId], references: [id])
   photos            PetPhotos[]
   requirements      AdoptionRequirements[]
 

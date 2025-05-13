@@ -3,5 +3,10 @@ POST http://localhost:3333/orgs
 Content-Type: application/json
 
 {
-  "responsibleName": "John Doe"
+  "responsibleName": "John Doe",
+  "email": "oM8t4@example.com",
+  "zipCode": "12345",
+  "address": "123 Main St",
+  "whatsapp": "123456789",
+  "password": "123456"
 }
