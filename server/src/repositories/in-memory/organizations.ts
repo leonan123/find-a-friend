@@ -1,4 +1,4 @@
-import type { Organizations, Prisma } from 'prisma/generated/prisma'
+import type { Organizations, Prisma } from 'generated/prisma'
 
 import type { OrganizationRepository } from '../organizations'
 
