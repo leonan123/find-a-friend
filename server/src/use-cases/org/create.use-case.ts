@@ -1,6 +1,6 @@
 import { hash } from 'bcryptjs'
 
-import { EmailAlreadyExists } from '@/errors/email-already-exists'
+import { EmailAlreadyExistsError } from '@/errors/email-already-exists-error'
 import type { OrganizationRepository } from '@/repositories/organizations'
 
 export type CreateOrgUseCaseRequest = {
@@ -11,6 +11,8 @@ export type CreateOrgUseCaseRequest = {
   whatsapp: string
   password: string
 }
+
+export type CreateOrgUseCaseResponse = void
 
 export class CreateOrgUseCase {
   constructor(private organizationRepository: OrganizationRepository) {}
@@ -24,7 +26,7 @@ export class CreateOrgUseCase {
     )
 
     if (emailAlreadyExists) {
-      throw new EmailAlreadyExists()
+      throw new EmailAlreadyExistsError()
     }
 
     const passwordHash = await hash(password, 6)
