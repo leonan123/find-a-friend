@@ -1,3 +1,4 @@
+import fastifyJWT from '@fastify/jwt'
 import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUI from '@fastify/swagger-ui'
 import fastify from 'fastify'
@@ -9,6 +10,8 @@ import {
   type ZodTypeProvider,
 } from 'fastify-type-provider-zod'
 
+import { env } from './env'
+import { authRoutes } from './http/routes/auth'
 import { orgRoutes } from './http/routes/orgs'
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
@@ -31,6 +34,10 @@ app.setErrorHandler((err, _, reply) => {
   })
 })
 
+app.register(fastifyJWT, {
+  secret: env.JWT_SECRET,
+})
+
 app.register(fastifySwagger, {
   openapi: {
     info: {
@@ -46,4 +53,5 @@ app.register(fastifySwaggerUI, {
   routePrefix: '/docs',
 })
 
+app.register(authRoutes, { prefix: 'auth' })
 app.register(orgRoutes, { prefix: 'orgs' })
