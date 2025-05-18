@@ -22,7 +22,7 @@ app.setSerializerCompiler(serializerCompiler)
 app.setErrorHandler((err, _, reply) => {
   if (hasZodFastifySchemaValidationErrors(err)) {
     return reply.status(400).send({
-      message: 'Validation error',
+      message: 'Validation error.',
       issues: err.validation.flatMap((issue) => issue.params.issue),
     })
   }

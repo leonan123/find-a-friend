@@ -21,6 +21,16 @@ export const authenticate: FastifyPluginAsyncZod = async (app) => {
           }),
           400: z.object({
             message: z.string(),
+            issues: z
+              .array(
+                z.object({
+                  message: z.string(),
+                  validation: z.string(),
+                  code: z.string(),
+                  path: z.array(z.string()),
+                }),
+              )
+              .optional(),
           }),
         },
       },
