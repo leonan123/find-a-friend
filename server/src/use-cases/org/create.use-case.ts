@@ -7,6 +7,9 @@ export type CreateOrgUseCaseRequest = {
   responsibleName: string
   email: string
   zipCode: string
+  neighborhood: string
+  IBGECityCode: string
+  stateCode: string
   address: string
   whatsapp: string
   password: string
@@ -18,8 +21,17 @@ export class CreateOrgUseCase {
   constructor(private organizationRepository: OrganizationRepository) {}
 
   async execute(data: CreateOrgUseCaseRequest) {
-    const { responsibleName, email, zipCode, address, whatsapp, password } =
-      data
+    const {
+      responsibleName,
+      email,
+      zipCode,
+      neighborhood,
+      IBGECityCode,
+      stateCode,
+      address,
+      whatsapp,
+      password,
+    } = data
 
     const emailAlreadyExists = await this.organizationRepository.findByEmail(
       email,
@@ -35,6 +47,9 @@ export class CreateOrgUseCase {
       responsibleName,
       email,
       zipCode,
+      neighborhood,
+      IBGECityCode,
+      stateCode,
       address,
       whatsapp,
       passwordHash,

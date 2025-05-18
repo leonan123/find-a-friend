@@ -13,6 +13,9 @@ model Organizations {
   responsibleName String   @map("responsible_name")
   email           String   @unique
   zipCode         String   @map("zip_code")
+  stateCode       String   @map("state_code")
+  IBGECityCode    String   @map("ibge_city_code")
+  neighborhood    String
   address         String
   whatsapp        String
   passwordHash    String   @map("password_hash")

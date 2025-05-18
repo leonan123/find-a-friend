@@ -15,6 +15,9 @@ export const create: FastifyPluginAsyncZod = async (app) => {
           responsibleName: z.string(),
           email: z.string().email(),
           zipCode: z.string(),
+          neighborhood: z.string(),
+          IBGECityCode: z.string().describe('IBGE City Code'),
+          stateCode: z.string().describe('UF ("RS", "SP", "MG", etc.)'),
           address: z.string(),
           whatsapp: z.string(),
           password: z.string(),
@@ -28,8 +31,17 @@ export const create: FastifyPluginAsyncZod = async (app) => {
       },
     },
     async (req, reply) => {
-      const { responsibleName, email, zipCode, address, whatsapp, password } =
-        req.body
+      const {
+        responsibleName,
+        email,
+        zipCode,
+        neighborhood,
+        IBGECityCode,
+        stateCode,
+        address,
+        whatsapp,
+        password,
+      } = req.body
 
       const createOrgUseCase = makeCreateOrgUseCase()
 
@@ -38,6 +50,9 @@ export const create: FastifyPluginAsyncZod = async (app) => {
           responsibleName,
           email,
           zipCode,
+          neighborhood,
+          IBGECityCode,
+          stateCode,
           address,
           whatsapp,
           password,

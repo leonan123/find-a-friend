@@ -6,12 +6,15 @@ export class InMemoryOrganizationsRepository implements OrganizationRepository {
   private organizations: Organizations[] = []
 
   async create(data: Prisma.OrganizationsCreateWithoutPetsInput) {
-    const org = {
+    const org: Organizations = {
       id: data.id ?? 'org-01',
       responsibleName: data.responsibleName,
       email: data.email,
       zipCode: data.zipCode,
       address: data.address,
+      neighborhood: data.neighborhood,
+      IBGECityCode: data.IBGECityCode,
+      stateCode: data.stateCode,
       whatsapp: data.whatsapp,
       passwordHash: data.passwordHash,
       createdAt: new Date(),
