@@ -13,6 +13,7 @@ import {
 import { env } from './env'
 import { authRoutes } from './http/routes/auth'
 import { orgRoutes } from './http/routes/orgs'
+import { petRoutes } from './http/routes/pets'
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -55,3 +56,4 @@ app.register(fastifySwaggerUI, {
 
 app.register(authRoutes, { prefix: 'auth' })
 app.register(orgRoutes, { prefix: 'orgs' })
+app.register(petRoutes, { prefix: 'pets' })

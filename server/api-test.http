@@ -1,3 +1,5 @@
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4OTU1YTJmZS0xMDZiLTQwYTktYmFjZC0wNGZhNTg5MmI1NjEiLCJpYXQiOjE3NDc1OTgxMzIsImV4cCI6MTc0ODIwMjkzMn0.jjEWj7-QGinw5a-8LA8CPe17ZPHCtyXrgCrCBGWA8so
+
 ### Create Org
 POST http://localhost:3333/orgs
 Content-Type: application/json
@@ -7,6 +9,9 @@ Content-Type: application/json
   "email": "oM8t4@example.com",
   "zipCode": "12345",
   "address": "123 Main St",
+  "neighborhood": "Downtown",
+  "stateCode": "SP",
+  "IBGECityCode": "12345",
   "whatsapp": "123456789",
   "password": "123456"
 }
@@ -18,4 +23,28 @@ Content-Type: application/json
 {
   "email": "oM8t4@example.com",
   "password": "123456"
+}
+
+### Create Pet
+POST http://localhost:3333/pets
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "name": "Fido 2",
+  "about": "A good dog",
+  "size": "SMALL",
+  "type": "DOG",
+  "lifeStage": "ADULT",
+  "idealEnvironment": "INDOOR",
+  "energyLevel": "HIGH",
+  "independenceLevel": "LOW",
+  "requirements": [
+    {
+      "description": "Good behavior"
+    },
+    {
+      "description": "Good health"
+    }
+  ]
 }

@@ -78,7 +78,7 @@ model Pets {
   energyLevel       PetEnergyLevel         @map("energy_level")
   independenceLevel PetIndependenceLevel   @map("independence_level")
   idealEnvironment  IdealEnvironment       @map("ideal_environment")
-  isAdopted         Boolean                @map("is_adopted")
+  isAdopted         Boolean                @default(false) @map("is_adopted")
   createdAt         DateTime               @default(now()) @map("created_at")
   updatedAt         DateTime               @default(now()) @map("updated_at")
   orgId             String                 @map("org_id")
