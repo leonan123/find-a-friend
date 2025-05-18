@@ -43,4 +43,8 @@ export class InMemoryPetRepository implements PetRepository {
 
     return pet
   }
+
+  async findMany() {
+    return this.pets
+  }
 }

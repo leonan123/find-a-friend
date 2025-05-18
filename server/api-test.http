@@ -31,7 +31,7 @@ Content-Type: application/json
 Authorization: {{token}}
 
 {
-  "name": "Fido 2",
+  "name": "Fido 10",
   "about": "A good dog",
   "size": "SMALL",
   "type": "DOG",
@@ -48,3 +48,7 @@ Authorization: {{token}}
     }
   ]
 }
+
+### Fetch Pets
+GET http://localhost:3333/pets?cityCode=12345&stateCode=SP&page=2&perPage=2&type=DOG
+Authorization: {{token}}
