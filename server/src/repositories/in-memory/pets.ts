@@ -1,5 +1,7 @@
 import type { Pets, Prisma } from 'generated/prisma'
 
+import type { FetchPetUseCaseRequest } from '@/use-cases/pet/fetch-pet.use-case'
+
 import type { PetRepository, PetsCreateInput } from '../pets'
 
 type Pet = Prisma.PetsGetPayload<{
@@ -44,7 +46,12 @@ export class InMemoryPetRepository implements PetRepository {
     return pet
   }
 
-  async findMany() {
-    return this.pets
+  async findMany(filters: FetchPetUseCaseRequest) {
+    const pets = this.pets.slice(
+      (filters.page - 1) * filters.perPage,
+      filters.perPage + (filters.page - 1) * filters.perPage,
+    )
+
+    return pets
   }
 }

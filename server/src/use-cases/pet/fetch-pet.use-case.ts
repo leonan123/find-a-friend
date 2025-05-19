@@ -2,7 +2,7 @@ import type { $Enums } from 'generated/prisma'
 
 import type { PetRepository } from '@/repositories/pets'
 
-interface FetchPetUseCaseRequest {
+export interface FetchPetUseCaseRequest {
   cityCode: string
   stateCode: string
   type: $Enums.PetType | 'DOG_AND_CAT'
