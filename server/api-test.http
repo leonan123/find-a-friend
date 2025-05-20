@@ -52,3 +52,7 @@ Authorization: {{token}}
 ### Fetch Pets
 GET http://localhost:3333/pets?cityCode=12345&stateCode=SP&page=2&perPage=2&type=DOG
 Authorization: {{token}}
+
+### Pet Details
+GET http://localhost:3333/pets/86791418-2db0-4a72-808f-58e17b3dfec2
+Authorization: {{token}}

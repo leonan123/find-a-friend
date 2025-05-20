@@ -1,4 +1,4 @@
-import type { Pets, Prisma } from 'generated/prisma'
+import type { Prisma } from 'generated/prisma'
 
 import type { FetchPetUseCaseRequest } from '@/use-cases/pet/fetch-pet.use-case'
 
@@ -12,16 +12,33 @@ type Pet = Prisma.PetsGetPayload<{
         description: true
       }
     }
+    photos: {
+      select: {
+        id: true
+        imageUrl: true
+      }
+    }
   }
 }>
 
 export class InMemoryPetRepository implements PetRepository {
-  private pets: Pets[] = []
+  private pets: Pet[] = []
+
+  async findById(id: string, orgId: string) {
+    const pet = this.pets.find((pet) => pet.id === id && pet.orgId === orgId)
+
+    return pet ?? null
+  }
 
   async create(data: PetsCreateInput) {
     const requirements = data.requirements?.map((requirement, i) => ({
       id: requirement.id ?? i + 1,
       description: requirement.description,
+    }))
+
+    const photos = data.photos?.map((photo, i) => ({
+      id: photo.id ?? String(i + 1),
+      imageUrl: photo.imageUrl,
     }))
 
     const pet: Pet = {
@@ -39,6 +56,7 @@ export class InMemoryPetRepository implements PetRepository {
       createdAt: new Date(),
       updatedAt: new Date(),
       requirements: requirements ?? [],
+      photos: photos ?? [],
     }
 
     this.pets.push(pet)

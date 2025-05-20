@@ -5,6 +5,31 @@ import { prisma } from '@/lib/prisma'
 import type { FindManyArgs, PetRepository, PetsCreateInput } from '../pets'
 
 export class PrismaPetRepository implements PetRepository {
+  async findById(id: string, orgId: string) {
+    const pet = await prisma.pets.findUnique({
+      where: {
+        id,
+        orgId,
+      },
+      include: {
+        requirements: {
+          select: {
+            id: true,
+            description: true,
+          },
+        },
+        photos: {
+          select: {
+            id: true,
+            imageUrl: true,
+          },
+        },
+      },
+    })
+
+    return pet
+  }
+
   async findMany(filters: FindManyArgs) {
     const pets = await prisma.pets.findMany({
       where: {

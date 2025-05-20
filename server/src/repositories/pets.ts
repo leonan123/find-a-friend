@@ -8,7 +8,7 @@ export type PetsCreateInput = Omit<
     Prisma.AdoptionRequirementsUncheckedCreateInput,
     'petId'
   >[]
-  photos?: Prisma.PetPhotosCreateManyInput[]
+  photos?: Omit<Prisma.PetPhotosUncheckedCreateInput, 'petId'>[]
 }
 
 export interface FindManyArgs {
@@ -23,7 +23,25 @@ export interface FindManyArgs {
   perPage: number
 }
 
+export type FindByIdResponse = Prisma.PetsGetPayload<{
+  include: {
+    requirements: {
+      select: {
+        id: true
+        description: true
+      }
+    }
+    photos: {
+      select: {
+        id: true
+        imageUrl: true
+      }
+    }
+  }
+}>
+
 export interface PetRepository {
   create(data: PetsCreateInput): Promise<Pets>
   findMany(filters: FindManyArgs): Promise<Pets[]>
+  findById(id: string, orgId: string): Promise<FindByIdResponse | null>
 }
