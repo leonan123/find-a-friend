@@ -1,14 +1,12 @@
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import z from 'zod'
 
-import { verifyJWT } from '@/http/middlewares/verify-jwt'
 import { makeFetchPetUseCase } from '@/use-cases/pet/factories/make-fetch-pet-use-case'
 
 export const fetchPet: FastifyPluginAsyncZod = async (app) => {
   app.get(
     '',
     {
-      onRequest: [verifyJWT],
       schema: {
         tags: ['Pets'],
         description: 'Fetch pets',
