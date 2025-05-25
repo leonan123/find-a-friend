@@ -82,7 +82,7 @@ model Pets {
   createdAt         DateTime               @default(now()) @map("created_at")
   updatedAt         DateTime               @default(now()) @map("updated_at")
   orgId             String                 @map("org_id")
-  org               Organizations          @relation(fields: [orgId], references: [id])
+  org               Organizations          @relation(fields: [orgId], references: [id], onDelete: Cascade)
   photos            PetPhotos[]
   requirements      AdoptionRequirements[]
 
@@ -93,7 +93,7 @@ model PetPhotos {
   id       String @id @default(uuid())
   imageUrl String @map("image_url")
   petId    String @map("pet_id")
-  pet      Pets   @relation(fields: [petId], references: [id])
+  pet      Pets   @relation(fields: [petId], references: [id], onDelete: Cascade)
 
   @@map("pet_photos")
 }
@@ -102,7 +102,7 @@ model AdoptionRequirements {
   id          Int    @id @default(autoincrement())
   description String
   petId       String @map("pet_id")
-  pet         Pets   @relation(fields: [petId], references: [id])
+  pet         Pets   @relation(fields: [petId], references: [id], onDelete: Cascade)
 
   @@map("adoption_requirements")
 }

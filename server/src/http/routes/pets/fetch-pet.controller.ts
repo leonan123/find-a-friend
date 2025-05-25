@@ -71,10 +71,8 @@ export const fetchPet: FastifyPluginAsyncZod = async (app) => {
       },
     },
     async (req, reply) => {
-      const orgId = req.user.sub
       const filters = {
         ...req.query,
-        orgId,
       }
 
       const fetchPetUseCase = makeFetchPetUseCase()
