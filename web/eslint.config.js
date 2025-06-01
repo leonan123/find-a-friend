@@ -40,5 +40,6 @@ export default tseslint.config(
         },
       ],
     },
+    ignores: ['**/routeTree.gen.ts'],
   },
 )

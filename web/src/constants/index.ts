@@ -1,0 +1,3 @@
+const SIDEBAR_WIDTH = 392
+
+export { SIDEBAR_WIDTH }
