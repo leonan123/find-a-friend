@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { FunnelIcon } from '@phosphor-icons/react'
 import { useNavigate, useSearch } from '@tanstack/react-router'
 import { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -133,7 +134,10 @@ export function Sidebar() {
       </div>
 
       <div className="bg-red-primary space-y- flex-1 space-y-7 px-8">
-        <span className="inline-block text-xl font-extrabold">Filtros</span>
+        <div className="flex items-center justify-between">
+          <span className="inline-block text-xl font-extrabold">Filtros</span>
+          <FunnelIcon className="size-6" />
+        </div>
 
         <div className="space-y-7">
           <div className="space-y-1.5">

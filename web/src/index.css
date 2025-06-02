@@ -3,6 +3,7 @@
 @theme {
   --font-sans: 'Nunito', sans-serif;
 
+  --color-red-lighter: #fbe1e2;
   --color-red-light: #f75f64;
   --color-red-primary: #f15156;
   --color-red-dark: #e44449;

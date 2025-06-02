@@ -68,7 +68,7 @@ export function LocaleForm() {
                   onStateChange(ev.target.value)
                 }}
                 placeholder="UF"
-                className="max-w-20"
+                className="max-w-20 border-2 border-white/10"
                 {...field}
               />
             )}
@@ -80,7 +80,7 @@ export function LocaleForm() {
               value: city.id.toString(),
             }))}
             placeholder="Selecione"
-            className="w-full lg:max-w-[240px]"
+            className="w-full border-2 border-white/10 lg:max-w-[240px]"
             {...register('cityCode')}
           />
         </div>

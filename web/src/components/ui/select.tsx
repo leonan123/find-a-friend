@@ -1,7 +1,6 @@
+import { CaretDownIcon } from '@phosphor-icons/react'
 import type { ComponentProps } from 'react'
 import { twMerge } from 'tailwind-merge'
-
-import ArrowDownIcon from '@/assets/icons/arrow-down.svg'
 
 interface Option {
   value: string
@@ -11,6 +10,7 @@ interface Option {
 
 interface SelectProps extends ComponentProps<'select'> {
   options: Option[]
+  emptyOption?: boolean
   placeholder?: string
 }
 
@@ -18,6 +18,7 @@ export function Select({
   options,
   className,
   placeholder,
+  emptyOption = true,
   ...props
 }: SelectProps) {
   return (
@@ -31,7 +32,7 @@ export function Select({
         className="size-full flex-1 appearance-none truncate pr-6 outline-none"
         {...props}
       >
-        <option value="">Selecione</option>
+        {emptyOption && <option value="">Selecione</option>}
 
         {options.map((option) => (
           <option key={option.value} value={option.value}>
@@ -41,7 +42,7 @@ export function Select({
       </select>
 
       <div className="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 transition-transform group-has-open:-rotate-180">
-        <img src={ArrowDownIcon} className="size-full" />
+        <CaretDownIcon className="size-full" />
       </div>
     </div>
   )
