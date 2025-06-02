@@ -1,14 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
-import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import type { City } from '../@types'
+import { useCitiesByState } from '@/hooks/use-cities-by-state'
+
 import SearchIcon from '../assets/icons/search.svg'
-import { getCitiesFromState } from '../http/get-cities-from-state'
-import { getStates } from '../http/get-states'
+import { Button } from './ui/button'
 import { Select } from './ui/select'
 
 const localeFormSchema = z.object({
@@ -20,21 +18,12 @@ type LocaleFormValues = z.infer<typeof localeFormSchema>
 
 export function LocaleForm() {
   const navigate = useNavigate()
-  const [cities, setCities] = useState<City[]>([])
+  const { cities, states, onStateChange } = useCitiesByState()
 
-  const { handleSubmit, control, setValue } = useForm<LocaleFormValues>({
-    resolver: zodResolver(localeFormSchema),
-  })
-
-  const { data } = useQuery({
-    queryKey: ['states'],
-    queryFn: () => getStates(),
-  })
-
-  async function handleStateChange(value: string) {
-    const response = await getCitiesFromState(value)
-    setCities(response.cities)
-  }
+  const { handleSubmit, control, register, setValue } =
+    useForm<LocaleFormValues>({
+      resolver: zodResolver(localeFormSchema),
+    })
 
   function handleLocaleFormSubmit(data: LocaleFormValues) {
     navigate({
@@ -67,17 +56,16 @@ export function LocaleForm() {
             control={control}
             render={({ field: { onChange, value, ...field } }) => (
               <Select
-                options={
-                  data?.states.map((state) => ({
-                    label: state.sigla,
-                    value: state.sigla,
-                  })) || []
-                }
+                id="stateCode"
+                options={states.map((state) => ({
+                  label: state.sigla,
+                  value: state.sigla,
+                }))}
                 value={value}
-                onValueChange={(value) => {
-                  onChange(value)
+                onChange={(ev) => {
                   setValue('cityCode', 0)
-                  handleStateChange(value)
+                  onChange(ev.target.value)
+                  onStateChange(ev.target.value)
                 }}
                 placeholder="UF"
                 className="max-w-20"
@@ -86,33 +74,22 @@ export function LocaleForm() {
             )}
           />
 
-          <Controller
-            name="cityCode"
-            control={control}
-            render={({ field: { onChange, value, ...field } }) => (
-              <Select
-                options={cities.map((city) => ({
-                  label: city.nome,
-                  value: city.id.toString(),
-                }))}
-                value={value}
-                onValueChange={onChange}
-                placeholder="Selecione"
-                className="w-full lg:max-w-[240px]"
-                {...field}
-              />
-            )}
+          <Select
+            options={cities.map((city) => ({
+              label: city.nome,
+              value: city.id.toString(),
+            }))}
+            placeholder="Selecione"
+            className="w-full lg:max-w-[240px]"
+            {...register('cityCode')}
           />
         </div>
       </div>
 
-      <button
-        type="submit"
-        className="bg-yellow-primary flex size-16 min-w-16 cursor-pointer items-center justify-center rounded-2xl transition-colors hover:bg-yellow-200"
-      >
+      <Button type="submit" variant="icon">
         <img src={SearchIcon} alt="Buscar" />
         <span className="sr-only">Buscar</span>
-      </button>
+      </Button>
     </form>
   )
 }
