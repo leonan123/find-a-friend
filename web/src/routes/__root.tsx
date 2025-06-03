@@ -9,9 +9,8 @@ function RootComponent() {
   return (
     <React.Fragment>
       <HeadContent />
-      <div className="h-dvh">
-        <Outlet />
-      </div>
+
+      <Outlet />
     </React.Fragment>
   )
 }

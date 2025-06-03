@@ -105,7 +105,7 @@ export function Sidebar() {
                   onChange(ev.target.value)
                 }}
                 placeholder="stateCode"
-                className="max-w-20 border-2 border-white/10"
+                className="max-w-20 border-2 border-white/10 bg-transparent"
                 {...field}
               />
             )}
@@ -121,7 +121,7 @@ export function Sidebar() {
               value: city.id.toString(),
             }))}
             placeholder="cityCode"
-            className="w-full border-2 border-white/10"
+            className="w-full border-2 border-white/10 bg-transparent"
             id="cityCode"
             {...register('cityCode')}
           />
@@ -151,7 +151,7 @@ export function Sidebar() {
                 { label: 'Adulto', value: 'ADULT' },
                 { label: 'Idoso', value: 'SENIOR' },
               ]}
-              className="bg-red-light"
+              className="bg-red-light border-0"
               id="lifeStage"
               {...register('lifeStage')}
             />
@@ -169,7 +169,7 @@ export function Sidebar() {
                 { label: 'Alto', value: 'HIGH' },
                 { label: 'Muito alto', value: 'VERY_HIGH' },
               ]}
-              className="bg-red-light"
+              className="bg-red-light border-0"
               id="energyLevel"
               {...register('energyLevel')}
             />
@@ -186,7 +186,7 @@ export function Sidebar() {
                 { label: 'Médio', value: 'MEDIUM' },
                 { label: 'Grande', value: 'BIG' },
               ]}
-              className="bg-red-light"
+              className="bg-red-light border-0"
               id="size"
               {...register('size')}
             />
@@ -204,7 +204,7 @@ export function Sidebar() {
                 { label: 'Alto', value: 'BIG' },
                 { label: 'Muito alto', value: 'VERY_HIGH' },
               ]}
-              className="bg-red-light"
+              className="bg-red-light border-0"
               id="independenceLevel"
               {...register('independenceLevel')}
             />

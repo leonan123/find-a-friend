@@ -24,7 +24,7 @@ export function Select({
   return (
     <div
       className={twMerge(
-        'group relative flex h-16 w-full items-center rounded-2xl pl-3.5 font-extrabold tracking-wide focus-within:outline focus-within:outline-blue-500',
+        'group relative flex h-16 w-full items-center rounded-lg border border-gray-200 bg-gray-100 pl-3.5 font-extrabold tracking-wide focus-within:outline focus-within:outline-blue-500',
         className,
       )}
     >
